@@ -1,0 +1,17 @@
+{
+  "name": "rune",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start",
+    "lint:js": "wp-scripts lint-js src webpack.config.js",
+    "lint:scss": "wp-scripts lint-style \"src/**/*.scss\""
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "37.0.0"
+  }
+}

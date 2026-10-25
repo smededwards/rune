@@ -1,0 +1,29 @@
+name: Checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  php:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer:2.8.12
+      - run: composer validate --strict
+      - run: composer install --no-interaction --prefer-dist
+      - run: find . -path ./vendor -prune -o -path ./node_modules -prune -o -name '*.php' -print0 | xargs -0 -n 1 php -l
+      - run: composer lint
+  assets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.22.1'
+          cache: npm
+      - run: npm ci
+      - run: npm run lint:js
+      - run: npm run lint:scss
+      - run: npm run build
