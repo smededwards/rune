@@ -1,6 +1,9 @@
 <?php
 /**
  * Plugin Name: Rune
+ * Plugin URI: https://github.com/smededwards/rune
+ * Author: Michael Edwards
+ * Author URI: https://smededwards.com
  * Description: Portfolio blocks foundation.
  * Version: 0.1.0
  * Requires PHP: 8.3
