@@ -8,10 +8,16 @@
   "scripts": {
     "build": "wp-scripts build",
     "start": "wp-scripts start",
-    "lint:js": "wp-scripts lint-js src webpack.config.js",
+    "lint:js": "wp-scripts lint-js src blocks webpack.config.js",
     "lint:scss": "wp-scripts lint-style \"src/**/*.scss\""
   },
   "devDependencies": {
     "@wordpress/scripts": "37.0.0"
+  },
+  "dependencies": {
+    "@wordpress/block-editor": "19.0.0",
+    "@wordpress/blocks": "17.0.0",
+    "@wordpress/components": "43.0.0",
+    "@wordpress/i18n": "7.0.0"
   }
 }

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "rune/contact-form",
+  "version": "0.1.0",
+  "title": "Contact form",
+  "category": "widgets",
+  "icon": "email-alt",
+  "description": "A simple contact form with editable labels and PHP validation.",
+  "textdomain": "rune",
+  "attributes": {
+    "nameLabel": {
+      "type": "string",
+      "default": "Name"
+    },
+    "emailLabel": {
+      "type": "string",
+      "default": "Email"
+    },
+    "messageLabel": {
+      "type": "string",
+      "default": "Message"
+    },
+    "namePlaceholder": {
+      "type": "string",
+      "default": "Your name"
+    },
+    "emailPlaceholder": {
+      "type": "string",
+      "default": "you@example.com"
+    },
+    "messagePlaceholder": {
+      "type": "string",
+      "default": "How can I help?"
+    },
+    "buttonLabel": {
+      "type": "string",
+      "default": "Send message"
+    },
+    "successMessage": {
+      "type": "string",
+      "default": "Thank you. Your message has been sent."
+    }
+  },
+  "supports": {
+    "html": false,
+    "multiple": false
+  },
+  "editorScript": "file:../../build/contact-form.js"
+}
