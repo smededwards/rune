@@ -25,5 +25,11 @@
       "homepage": "https://smededwards.com"
     }
   ],
-  "homepage": "https://github.com/smededwards/rune"
+  "homepage": "https://github.com/smededwards/rune",
+  "autoload": {
+    "classmap": [
+      "class-plugin.php",
+      "blocks/"
+    ]
+  }
 }
