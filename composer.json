@@ -29,7 +29,8 @@
   "autoload": {
     "classmap": [
       "class-plugin.php",
-      "blocks/"
+      "blocks/",
+      "editor/"
     ]
   }
 }

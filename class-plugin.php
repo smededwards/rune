@@ -9,12 +9,13 @@ namespace Rune;
 
 use Rune\Blocks\ContactForm;
 
-/** Registers Rune blocks using native metadata. */
+/** Registers Rune blocks and editor extensions using native APIs. */
 final class Plugin {
 
 	/** Register block hooks. */
 	public function register(): void {
 		add_action( 'init', array( $this, 'blocks' ) );
+		( new \Rune\Editor\ColourMode() )->register();
 	}
 
 	/** Register the contact block and its dynamic renderer. */
