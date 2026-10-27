@@ -1,0 +1,26 @@
+.editor-styles-wrapper {
+	&[data-rune-canvas-mode="light"] {
+		--rune-canvas-background: #fff;
+		--rune-canvas-text: #19191a;
+		--rune-canvas-muted: #424245;
+		--rune-canvas-line: #cecece;
+		--rune-canvas-panel: #f5f5f4;
+		--rune-canvas-accent: #a17943;
+		color-scheme: light;
+	}
+
+	&[data-rune-canvas-mode="dark"] {
+		--rune-canvas-background: #19191a;
+		--rune-canvas-text: #fff;
+		--rune-canvas-muted: #cecece;
+		--rune-canvas-line: #424245;
+		--rune-canvas-panel: #222224;
+		--rune-canvas-accent: #e8c9a0;
+		color-scheme: dark;
+	}
+
+	&[data-rune-canvas-mode] {
+		background-color: var(--rune-canvas-background);
+		color: var(--rune-canvas-text);
+	}
+}

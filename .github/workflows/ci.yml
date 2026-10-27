@@ -27,3 +27,4 @@ jobs:
       - run: npm run lint:js
       - run: npm run lint:scss
       - run: npm run build
+      - run: npm run test:editor

@@ -22,3 +22,9 @@
 - Use BEM for custom HTML and SCSS classes: `block`, `block__element`, `block--modifier` or `block__element--modifier`. Preserve WordPress-owned classes and keep block metadata, saved markup and selectors aligned when renaming classes.
 
 - Prefer native WordPress blocks and editor controls wherever they meet the requirement. Use Page List for page navigation and Query Loop for dynamic card layouts; introduce custom blocks, shortcodes or renderers only for an agreed gap in core.
+
+## SCSS formatting
+
+- Use expanded rules, tabs (display width 4), one declaration per line and one selector per line in lists. Keep a blank line between sibling rules, with no empty lines directly inside braces. Preserve declaration order.
+- Nest component states and BEM elements/modifiers where clear. Keep supporting JavaScript in `src/js/` and SCSS in `src/scss/`, with explicit build entry points in `src/`. Preserve native WordPress classes.
+- Run `npm run lint:scss`; the local WordPress stylistic preset and overrides enforce the preferred formatting.
