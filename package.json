@@ -1,6 +1,6 @@
 {
   "name": "rune",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "private": true,
   "engines": {
     "node": ">=24 <25"
@@ -8,10 +8,22 @@
   "scripts": {
     "build": "wp-scripts build",
     "start": "wp-scripts start",
-    "lint:js": "wp-scripts lint-js src webpack.config.js",
-    "lint:scss": "wp-scripts lint-style \"src/**/*.scss\""
+    "lint:js": "wp-scripts lint-js src blocks webpack.config.js",
+    "lint:scss": "wp-scripts lint-style \"src/**/*.scss\"",
+    "test:editor": "node --test tests/editor-colour-mode.test.cjs"
   },
   "devDependencies": {
     "@wordpress/scripts": "37.0.0"
+  },
+  "dependencies": {
+    "@wordpress/block-editor": "19.0.0",
+    "@wordpress/blocks": "17.0.0",
+    "@wordpress/components": "43.0.0",
+    "@wordpress/compose": "9.0.0",
+    "@wordpress/data": "11.0.0",
+    "@wordpress/element": "10.0.0",
+    "@wordpress/i18n": "7.0.0",
+    "@wordpress/plugins": "8.0.0",
+    "@wordpress/preferences": "5.0.0"
   }
 }
