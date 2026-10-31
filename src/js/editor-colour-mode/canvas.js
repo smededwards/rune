@@ -15,6 +15,12 @@ export function createCanvasController( rootDocument ) {
 	let disposed = false;
 	let scheduled = false;
 
+	/**
+	 * Apply the active mode to canvas wrappers in a document.
+	 *
+	 * @param {Document} doc Editor document to update.
+	 * @return {void}
+	 */
 	function apply( doc ) {
 		doc.querySelectorAll( '.editor-styles-wrapper' ).forEach(
 			( wrapper ) => {
@@ -28,6 +34,12 @@ export function createCanvasController( rootDocument ) {
 		);
 	}
 
+	/**
+	 * Observe a document for editor canvas changes.
+	 *
+	 * @param {Document} doc Editor document to observe.
+	 * @return {void}
+	 */
 	function observe( doc ) {
 		if ( ! doc?.documentElement || documents.has( doc ) ) {
 			return;
@@ -40,6 +52,11 @@ export function createCanvasController( rootDocument ) {
 		documents.set( doc, observer );
 	}
 
+	/**
+	 * Reconcile active editor documents, frames and canvas wrappers.
+	 *
+	 * @return {void}
+	 */
 	function refresh() {
 		if ( disposed ) {
 			return;
@@ -87,6 +104,11 @@ export function createCanvasController( rootDocument ) {
 		}
 	}
 
+	/**
+	 * Schedule a single refresh after DOM mutations settle.
+	 *
+	 * @return {void}
+	 */
 	function schedule() {
 		if ( ! scheduled && ! disposed ) {
 			scheduled = true;
@@ -96,10 +118,21 @@ export function createCanvasController( rootDocument ) {
 
 	refresh();
 	return {
+		/**
+		 * Apply a colour mode to every active editor canvas.
+		 *
+		 * @param {string} nextMode Requested mode; only `dark` selects dark mode.
+		 * @return {void}
+		 */
 		setMode( nextMode ) {
 			mode = nextMode === 'dark' ? 'dark' : 'light';
 			refresh();
 		},
+		/**
+		 * Disconnect observers and restore canvas attributes.
+		 *
+		 * @return {void}
+		 */
 		dispose() {
 			disposed = true;
 			for ( const observer of documents.values() ) {
