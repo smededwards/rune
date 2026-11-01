@@ -1,39 +1,43 @@
 # Rune
 
-Portfolio blocks plugin. The editable Contact form is its first custom block.
+Rune is a WordPress blocks plugin. Its first custom block is an editable Contact form.
 
-Develop alongside `portfolio`, `obel`, `aeon` and `rune`. Use the site Makefile to run all tools inside containers. This repository has its own Composer lock and checks.
+## Name
 
-Run `npm ci`, `npm run build`, `npm run start`, `npm run lint:js` and `npm run lint:scss` inside the Node container. Generated `build/` assets are assembled in site CI, not committed.
+Rune refers to symbolic writing. Individual marks can form larger expressions, much as reusable blocks combine into pages; the name speaks to composition without prescribing a particular visual style.
 
-Run `composer install` and `composer lint` in the PHP tools container. CI also syntax-checks PHP. Contact-submission behaviour is tested in Aeon.
+Develop Rune alongside `portfolio`, `obel` and `aeon`. The site Makefile runs tools in containers. Rune has its own Composer lock and checks.
 
-For release, publish this repository separately and create a semantic version tag after checks pass. The site must require a real tag and update its production lock. Do not deploy a local path dependency.
+Run `npm ci`, `npm run build`, `npm run start`, `npm run lint:js` and `npm run lint:scss` in the Node container. Site CI builds the generated assets; `build/` files are not committed.
+
+Run `composer install` and `composer lint` in the PHP tools container. CI syntax-checks PHP. Aeon tests contact submissions.
+
+After checks pass, publish Rune separately and create a semantic version tag. Update the site’s production lock to use that tag. Production must use tagged releases rather than local path dependencies.
 
 ## Contribution conventions
 
-Use Conventional Commit subjects and PR titles, for example `feat(theme): add navigation` or `fix(blocks): correct editor styles`. The repository's first commit is the explicit exception: `Initial Commit`. PR CI validates titles and every commit in the PR. See `AGENTS.md` for repository guidance.
+Use Conventional Commit subjects and PR titles, such as `feat(theme): add navigation` or `fix(blocks): correct editor styles`. Name the first commit `Initial Commit`. PR CI checks titles and commits. See `AGENTS.md` for details.
 
 ## Contact form
 
-Insert **Contact form** on a public Page. Select it and use **Block settings → Form content** to edit the name/email/message labels, placeholders, button text and success message. The three fields stay fixed for the MVP. Surrounding introduction and profile links remain ordinary native blocks. Only one instance is supported per page.
+Add **Contact form** to a public Page. Select the block and use **Block settings → Form content** to edit the name, email and message labels, placeholders, submit button and success message. The fields are fixed for the MVP. Build the introduction and profile links with native blocks. Use one Contact form block per Page.
 
-The block uses `blocks/contact-form/block.json`, a namespaced PHP renderer and a small editor-only script compiled to `build/contact-form.js`. It saves attributes rather than HTML. Its output is escaped at render time, with visible labels, required indicators, associated field errors and an error summary. It depends on Aeon’s contact handler and intentionally renders no public form if that handler is unavailable. Obel supplies the theme styling; no frontend JavaScript is required.
+The block is defined in `blocks/contact-form/block.json`, rendered by namespaced PHP and configured with an editor script compiled to `build/contact-form.js`. It saves attributes and renders escaped markup with visible labels, required indicators, field errors and an error summary. Aeon handles submissions; without Aeon, Rune does not render the public form. Obel supplies the styles. The form needs no frontend JavaScript.
 
-After installing Composer and npm dependencies, regenerate the classmap with `composer dump-autoload` and run `npm run build`. WordPress provides the editor packages at runtime; the build extracts their native script dependencies. Build assets and vendor dependencies remain outside Git.
+After installing Composer and npm dependencies, run `composer dump-autoload` to update the classmap and `npm run build` to compile assets. WordPress provides editor packages at runtime, and the build extracts their script dependencies. Generated assets and Composer dependencies are excluded from Git.
 
 ## Editor canvas colour mode
 
-A native SlotFill button named **Dark editor canvas** appears in the post/page editor, Site Editor editing toolbar and block widgets editor. It changes the content canvas only. The initial appearance follows the operating-system preference until a choice is made; explicit light/dark choices use WordPress's persisted preference store under `rune.canvasColourMode`. This preference is separate from the public website's colour toggle and does not edit block attributes, saved content or global styles.
+The post and page editor, Site Editor and Widgets editor have a SlotFill toolbar button named **Dark editor canvas**. It changes the content canvas. Before the user chooses a mode, Rune follows the operating-system preference. It saves explicit choices in WordPress’s preference store under `rune.canvasColourMode`. The editor setting is separate from the public colour toggle and does not change block attributes, saved content or global styles.
 
-`editor/class-colour-mode.php` enqueues the toolbar script through `enqueue_block_editor_assets` and the canvas stylesheet through the admin-only `enqueue_block_assets` hook. The generated assets do not load on the public frontend. Supporting code is under `src/js/editor-colour-mode/`; styling is under `src/scss/`. The build entry is `src/editor-colour-mode.js`.
+`editor/class-colour-mode.php` loads the toolbar script through `enqueue_block_editor_assets` and the canvas stylesheet through the admin-only `enqueue_block_assets` hook. These assets are not loaded on the public site. The supporting code is in `src/js/editor-colour-mode/`, styles in `src/scss/`, and the build entry in `src/editor-colour-mode.js`.
 
-The toolbar uses core's `Fill` component and the named `PinnedItems` slots. WordPress 7.1 uses the shared `core` scope for post and site editors; widgets uses `core/edit-widgets`. Older post/site scopes are kept in the small adapter in `control.js`. These named toolbar integration points should be checked when updating WordPress; this feature was verified against the installed WordPress 7.1.3. The button follows core's pinned-toolbar visibility settings rather than injecting DOM elements into the toolbar.
+The toolbar uses WordPress’s `Fill` component and named `PinnedItems` slots. In WordPress 7.1, post and site editors use the `core` scope; Widgets uses `core/edit-widgets`. `control.js` maps the older post and site editor scopes. Check these toolbar slots when updating WordPress. The feature was verified with WordPress 7.1.3. Core’s pinned-toolbar settings control button visibility.
 
-The canvas controller handles non-iframed editors, editor iframe loads, replacement documents and subsequently mounted canvases. Observers and load listeners are cleaned up when the control unmounts. It does not access unrelated or cross-origin frames. Native button keyboard behaviour, an accessible label and `aria-pressed` communicate the current state; no colour transition or animation is introduced.
+The canvas controller supports iframed and non-iframed editors, including replacement documents and canvases mounted after load. It removes observers and load listeners when the control unmounts, and only accesses the editor’s own frame. The native button supports keyboard input; its accessible label and `aria-pressed` state announce the current mode. The toggle does not animate colour changes.
 
-Canvas colours are exposed as `--rune-canvas-background`, `--rune-canvas-text`, `--rune-canvas-muted`, `--rune-canvas-line`, `--rune-canvas-panel` and `--rune-canvas-accent`. Themes can use these in their editor styles to adapt custom surfaces without changing saved block colours. Obel maps its editor colour tokens to this contract, with its existing colours as fallbacks when Rune is inactive. Explicit block colour choices are preserved; arbitrary third-party theme surfaces are not rewritten.
+Rune exposes these canvas colour variables: `--rune-canvas-background`, `--rune-canvas-text`, `--rune-canvas-muted`, `--rune-canvas-line`, `--rune-canvas-panel` and `--rune-canvas-accent`. Themes can use them for editor surfaces. Obel maps its editor tokens to the variables and falls back to its own colours when Rune is inactive. Saved block colours and third-party theme surfaces are left unchanged.
 
-Run `npm run test:editor` for the six canvas lifecycle checks; CI runs them with linting and the build. Manual verification should cover keyboard activation, persistence after reload, post/site/widgets toolbar availability and unchanged surrounding editor chrome. Obel itself does not expose a widgets area, so widgets verification uses a temporary local-only sidebar fixture that is removed afterwards without saving widgets.
+Run `npm run test:editor` for six canvas lifecycle checks. CI runs them with linting and the build. Also check keyboard activation, saved preference after reload, toolbar availability in post, site and Widgets editors, and the surrounding editor interface. Obel has no Widgets area, so Widgets testing uses a temporary local sidebar fixture. Remove it without saving any Widgets.
 
 References: [SlotFill](https://developer.wordpress.org/block-editor/reference-guides/components/slot-fill/), [editor asset loading](https://developer.wordpress.org/block-editor/how-to-guides/enqueueing-assets-in-the-editor/).
