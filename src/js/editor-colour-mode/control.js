@@ -15,6 +15,11 @@ const toolbarSlots = [
 	'PinnedItems/core/edit-widgets',
 ];
 
+/**
+ * Render the persistent editor canvas colour-mode control.
+ *
+ * @return {Object[]} Toolbar fills for the supported editor contexts.
+ */
 export default function ColourModeControl() {
 	const storedMode = useSelect(
 		( select ) =>

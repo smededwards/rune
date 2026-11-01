@@ -7,15 +7,25 @@
 
 namespace Rune\Editor;
 
-/** Loads a SlotFill control and canvas-only styles in native block editors. */
+/**
+ * Loads a SlotFill control and canvas-only styles in native block editors.
+ */
 final class ColourMode {
-	/** Register separate editor-interface and canvas asset hooks. */
+	/**
+	 * Register separate editor-interface and canvas asset hooks.
+	 *
+	 * @return void
+	 */
 	public function register(): void {
 		add_action( 'enqueue_block_editor_assets', array( $this, 'scripts' ) );
 		add_action( 'enqueue_block_assets', array( $this, 'styles' ) );
 	}
 
-	/** Load the toolbar control with generated WordPress dependencies. */
+	/**
+	 * Load the toolbar control with generated WordPress dependencies.
+	 *
+	 * @return void
+	 */
 	public function scripts(): void {
 		$base = dirname( __DIR__ ) . '/build/editor-colour-mode';
 		if ( ! is_readable( $base . '.asset.php' ) ) {
@@ -32,7 +42,11 @@ final class ColourMode {
 		wp_set_script_translations( 'rune-editor-colour-mode', 'rune' );
 	}
 
-	/** Load preview styles in both iframed and non-iframed editor canvases. */
+	/**
+	 * Load preview styles in both iframed and non-iframed editor canvases.
+	 *
+	 * @return void
+	 */
 	public function styles(): void {
 		$path = dirname( __DIR__ ) . '/build/editor-colour-mode.css';
 		if ( ! is_admin() || ! is_readable( $path ) ) {

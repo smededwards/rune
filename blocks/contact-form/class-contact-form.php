@@ -7,7 +7,9 @@
 
 namespace Rune\Blocks;
 
-/** Renders fixed fields with editor-owned labels and safe request state. */
+/**
+ * Renders fixed fields with editor-owned labels and safe request state.
+ */
 final class ContactForm {
 
 	/**
