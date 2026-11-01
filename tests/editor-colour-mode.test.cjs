@@ -13,18 +13,45 @@ const createController = vm.runInNewContext(
 		'\ncreateCanvasController;'
 );
 
+/**
+ * Create a fake DOM and observer set for canvas controller checks.
+ *
+ * @return {Object} Document, node factories and recorded observers.
+ */
 function harness() {
 	const observers = [];
+	// Provide a controllable MutationObserver stub for tests.
 	class Observer {
+		/**
+		 * Store the callback used to report DOM changes.
+		 *
+		 * @param {(records: Object[], observer: Object) => void} callback Callback to invoke when a mutation occurs.
+		 * @return {void}
+		 */
 		constructor( callback ) {
 			this.callback = callback;
 			observers.push( this );
 		}
+		/**
+		 * Mark the observation interface used by the controller.
+		 *
+		 * @return {void}
+		 */
 		observe() {}
+		/**
+		 * Record that the observer has been stopped.
+		 *
+		 * @return {void}
+		 */
 		disconnect() {
 			this.disconnected = true;
 		}
 	}
+	/**
+	 * Create a fake document with a controllable editor canvas.
+	 *
+	 * @return {Object} Minimal document stub.
+	 */
 	function document() {
 		return {
 			documentElement: {},
@@ -38,9 +65,18 @@ function harness() {
 			},
 		};
 	}
+	/**
+	 * Add a fake editor wrapper to a document.
+	 *
+	 * @param {Object}      doc      Document stub to own the wrapper.
+	 * @param {string|null} previous Previously saved canvas mode.
+	 * @return {Object} Editor wrapper stub.
+	 */
 	function wrapper( doc, previous = null ) {
 		const attrs = new Map();
-		if ( previous !== null ) attrs.set( 'data-rune-canvas-mode', previous );
+		if ( previous !== null ) {
+			attrs.set( 'data-rune-canvas-mode', previous );
+		}
 		const node = {
 			ownerDocument: doc,
 			isConnected: true,
@@ -51,6 +87,12 @@ function harness() {
 		doc.wrappers.push( node );
 		return node;
 	}
+	/**
+	 * Add a fake editor iframe to a document.
+	 *
+	 * @param {Object} doc Document to expose through the frame.
+	 * @return {Object} Frame stub with controllable load listeners.
+	 */
 	function frame( doc ) {
 		return {
 			contentDocument: doc,
@@ -67,7 +109,20 @@ function harness() {
 	const root = document();
 	return { root, document, wrapper, frame, observers };
 }
+
+/**
+ * Read the current canvas mode from a test wrapper.
+ *
+ * @param {Object} node Editor wrapper stub.
+ * @return {string|null} Current preview mode.
+ */
 const mode = ( node ) => node.getAttribute( 'data-rune-canvas-mode' );
+
+/**
+ * Flush the microtask scheduled by a mutation observer callback.
+ *
+ * @return {Promise<void>} Promise resolved after the scheduled refresh.
+ */
 const flush = () => new Promise( ( resolve ) => setImmediate( resolve ) );
 
 test( 'changes the canvas immediately without colouring the admin document', () => {
