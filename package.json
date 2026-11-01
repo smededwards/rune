@@ -8,7 +8,7 @@
   "scripts": {
     "build": "wp-scripts build",
     "start": "wp-scripts start",
-    "lint:js": "wp-scripts lint-js src blocks webpack.config.js",
+    "lint:js": "wp-scripts lint-js src blocks tests webpack.config.js",
     "lint:scss": "wp-scripts lint-style \"src/**/*.scss\"",
     "test:editor": "node --test tests/editor-colour-mode.test.cjs"
   },
