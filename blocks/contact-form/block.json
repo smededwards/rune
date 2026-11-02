@@ -3,7 +3,7 @@
   "apiVersion": 3,
   "name": "rune/contact-form",
   "version": "0.2.1",
-  "title": "Contact form",
+  "title": "Contact Form",
   "category": "widgets",
   "icon": "email-alt",
   "description": "A simple contact form with editable labels and PHP validation.",

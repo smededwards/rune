@@ -20,11 +20,11 @@ function Edit( { attributes, setAttributes } ) {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Form content', 'rune' ) }>
+				<PanelBody title={ __( 'Form Content', 'rune' ) }>
 					{ fields.map( ( field ) => (
 						<div key={ field }>
 							<TextControl
-								label={ `${ metadata.attributes[ field + 'Label' ].default } ${ __( 'label', 'rune' ) }` }
+								label={ `${ metadata.attributes[ field + 'Label' ].default } ${ __( 'Label', 'rune' ) }` }
 								value={ attributes[ field + 'Label' ] }
 								onChange={ ( value ) =>
 									setAttributes( {
@@ -33,7 +33,7 @@ function Edit( { attributes, setAttributes } ) {
 								}
 							/>
 							<TextControl
-								label={ `${ metadata.attributes[ field + 'Label' ].default } ${ __( 'placeholder', 'rune' ) }` }
+								label={ `${ metadata.attributes[ field + 'Label' ].default } ${ __( 'Placeholder', 'rune' ) }` }
 								value={ attributes[ field + 'Placeholder' ] }
 								onChange={ ( value ) =>
 									setAttributes( {
@@ -44,14 +44,14 @@ function Edit( { attributes, setAttributes } ) {
 						</div>
 					) ) }
 					<TextControl
-						label={ __( 'Button text', 'rune' ) }
+						label={ __( 'Button Text', 'rune' ) }
 						value={ attributes.buttonLabel }
 						onChange={ ( buttonLabel ) =>
 							setAttributes( { buttonLabel } )
 						}
 					/>
 					<TextareaControl
-						label={ __( 'Success message', 'rune' ) }
+						label={ __( 'Success Message', 'rune' ) }
 						value={ attributes.successMessage }
 						onChange={ ( successMessage ) =>
 							setAttributes( { successMessage } )
