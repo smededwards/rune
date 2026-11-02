@@ -1,4 +1,7 @@
+// WordPress dependencies.
 import { registerPlugin } from '@wordpress/plugins';
+
+// Internal dependencies.
 import ColourModeControl from './js/editor-colour-mode/control';
 import './scss/editor-colour-mode.scss';
 

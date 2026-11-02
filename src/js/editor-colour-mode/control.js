@@ -1,13 +1,15 @@
+// WordPress dependencies.
 import { Button, Fill } from '@wordpress/components';
 import { useMediaQuery } from '@wordpress/compose';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useEffect, useRef } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { store as preferencesStore } from '@wordpress/preferences';
+
+// Internal dependencies.
 import { createCanvasController } from './canvas';
 
-// WordPress 7.1 shares the core scope across post/site editors; widgets has its own.
-// Older editor scopes are retained here as a small, isolated SlotFill adapter.
+// WordPress 7.1 shares the core scope across post/site editors; older scopes remain as a SlotFill adapter for widgets and previous releases.
 const toolbarSlots = [
 	'PinnedItems/core',
 	'PinnedItems/core/edit-post',
@@ -51,7 +53,7 @@ export default function ColourModeControl() {
 				className="rune-canvas-toggle"
 				icon="lightbulb"
 				size="compact"
-				label={ __( 'Dark editor canvas', 'rune' ) }
+				label={ __( 'Dark Editor Canvas', 'rune' ) }
 				aria-pressed={ Boolean( dark ) }
 				isPressed={ Boolean( dark ) }
 				onClick={ () =>

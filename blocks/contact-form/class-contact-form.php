@@ -26,7 +26,7 @@ final class ContactForm {
 			'nameLabel'      => __( 'Name', 'rune' ),
 			'emailLabel'     => __( 'Email', 'rune' ),
 			'messageLabel'   => __( 'Message', 'rune' ),
-			'buttonLabel'    => __( 'Send message', 'rune' ),
+			'buttonLabel'    => __( 'Send Message', 'rune' ),
 			'successMessage' => __( 'Thank you. Your message has been sent.', 'rune' ),
 		) as $key => $fallback ) {
 			if ( '' === trim( $attributes[ $key ] ) ) {

@@ -1,6 +1,6 @@
 # Rune
 
-Rune is a WordPress blocks plugin. Its first custom block is an editable Contact form.
+Rune is a WordPress blocks plugin. Its first custom block is an editable Contact Form.
 
 ## Name
 
@@ -14,21 +14,21 @@ Run `composer install` and `composer lint` in the PHP tools container. CI syntax
 
 After checks pass, publish Rune separately and create a semantic version tag. Update the site’s production lock to use that tag. Production must use tagged releases rather than local path dependencies.
 
-## Contribution conventions
+## Contribution Conventions
 
 Use Conventional Commit subjects and PR titles, such as `feat(theme): add navigation` or `fix(blocks): correct editor styles`. Name the first commit `Initial Commit`. PR CI checks titles and commits. See `AGENTS.md` for details.
 
-## Contact form
+## Contact Form
 
-Add **Contact form** to a public Page. Select the block and use **Block settings → Form content** to edit the name, email and message labels, placeholders, submit button and success message. The fields are fixed for the MVP. Build the introduction and profile links with native blocks. Use one Contact form block per Page.
+Add **Contact Form** to a public Page. Select the block and use **Block Settings → Form Content** to edit the name, email and message labels, placeholders, submit button and success message. The fields are fixed for the MVP. Build the introduction and profile links with native blocks. Use one Contact Form block per Page.
 
 The block is defined in `blocks/contact-form/block.json`, rendered by namespaced PHP and configured with an editor script compiled to `build/contact-form.js`. It saves attributes and renders escaped markup with visible labels, required indicators, field errors and an error summary. Aeon handles submissions; without Aeon, Rune does not render the public form. Obel supplies the styles. The form needs no frontend JavaScript.
 
 After installing Composer and npm dependencies, run `composer dump-autoload` to update the classmap and `npm run build` to compile assets. WordPress provides editor packages at runtime, and the build extracts their script dependencies. Generated assets and Composer dependencies are excluded from Git.
 
-## Editor canvas colour mode
+## Editor Canvas Colour Mode
 
-The post and page editor, Site Editor and Widgets editor have a SlotFill toolbar button named **Dark editor canvas**. It changes the content canvas. Before the user chooses a mode, Rune follows the operating-system preference. It saves explicit choices in WordPress’s preference store under `rune.canvasColourMode`. The editor setting is separate from the public colour toggle and does not change block attributes, saved content or global styles.
+The post and page editor, Site Editor and Widgets editor have a SlotFill toolbar button named **Dark Editor Canvas**. It changes the content canvas. Before the user chooses a mode, Rune follows the operating-system preference. It saves explicit choices in WordPress’s preference store under `rune.canvasColourMode`. The editor setting is separate from the public colour toggle and does not change block attributes, saved content or global styles.
 
 `editor/class-colour-mode.php` loads the toolbar script through `enqueue_block_editor_assets` and the canvas stylesheet through the admin-only `enqueue_block_assets` hook. These assets are not loaded on the public site. The supporting code is in `src/js/editor-colour-mode/`, styles in `src/scss/`, and the build entry in `src/editor-colour-mode.js`.
 
