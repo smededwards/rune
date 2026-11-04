@@ -1,6 +1,6 @@
 # Rune
 
-Rune is a WordPress blocks plugin. Its first custom block is an editable Contact Form.
+Rune is a WordPress blocks and editor plugin. It provides an editable Contact Form, editor controls and pattern settings.
 
 ## Name
 
@@ -25,6 +25,14 @@ Add **Contact Form** to a public Page. Select the block and use **Block Settings
 The block is defined in `blocks/contact-form/block.json`, rendered by namespaced PHP and configured with an editor script compiled to `build/contact-form.js`. It saves attributes and renders escaped markup with visible labels, required indicators, field errors and an error summary. Aeon handles submissions; without Aeon, Rune does not render the public form. Obel supplies the styles. The form needs no frontend JavaScript.
 
 After installing Composer and npm dependencies, run `composer dump-autoload` to update the classmap and `npm run build` to compile assets. WordPress provides editor packages at runtime, and the build extracts their script dependencies. Generated assets and Composer dependencies are excluded from Git.
+
+## Editor Controls
+
+Under **Settings → Rune**, the **Block Editor** settings control the available blocks and Openverse media source. **Patterns** settings control the native Patterns shortcut, bundled WordPress patterns and remote pattern directory. These controls do not unregister blocks, alter saved content or remove saved patterns.
+
+Rune copies existing editor preferences from Aeon into its own `rune_editor_features` option on first load. Existing selections are preserved, and Rune’s settings do not delete or modify Aeon’s saved option.
+
+The controls are implemented in `editor/class-features.php`, `editor/class-patterns.php` and `editor/class-settings.php`. Obel remains responsible for theme-specific presentation and editor styles.
 
 ## Editor Canvas Colour Mode
 

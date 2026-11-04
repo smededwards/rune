@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "rune/experience-years",
+  "version": "0.2.1",
+  "title": "Experience Years",
+  "category": "text",
+  "icon": "calendar-alt",
+  "description": "Displays completed years of experience from an editable start date.",
+  "textdomain": "rune",
+  "attributes": {
+    "startDate": {
+      "type": "string",
+      "default": "2013-01-15"
+    },
+    "displayStyle": {
+      "type": "string",
+      "default": "years",
+      "enum": [
+        "years",
+        "plus",
+        "over"
+      ]
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "editorScript": "file:../../build/experience-years.js"
+}
