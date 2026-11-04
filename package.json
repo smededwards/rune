@@ -10,7 +10,7 @@
     "start": "wp-scripts start",
     "lint:js": "wp-scripts lint-js src blocks tests webpack.config.js",
     "lint:scss": "wp-scripts lint-style \"src/**/*.scss\"",
-    "test:editor": "node --test tests/editor-colour-mode.test.cjs"
+    "test:editor": "node --test tests/*.test.cjs"
   },
   "devDependencies": {
     "@wordpress/scripts": "37.0.0"

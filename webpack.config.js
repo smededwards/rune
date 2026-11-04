@@ -12,5 +12,9 @@ module.exports = {
 			__dirname,
 			'blocks/contact-form/index.js'
 		),
+		'experience-years': path.resolve(
+			__dirname,
+			'blocks/experience-years/index.js'
+		),
 	},
 };
