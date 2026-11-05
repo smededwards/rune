@@ -9,6 +9,7 @@ namespace Rune;
 
 use Rune\Blocks\ContactForm;
 use Rune\Blocks\ExperienceYears;
+use Rune\Editor\Augur;
 use Rune\Editor\ColourMode;
 use Rune\Editor\Features;
 use Rune\Editor\Patterns;
@@ -31,6 +32,7 @@ final class Plugin {
 		( new Features( $settings ) )->register();
 		( new Patterns( $settings ) )->register();
 		( new ColourMode() )->register();
+		( new Augur( $settings ) )->register();
 	}
 
 	/**

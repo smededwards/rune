@@ -16,6 +16,7 @@ final class Settings {
 
 	// Preserve the current editor defaults after the feature move.
 	public const DEFAULTS = array(
+		'augur'             => false,
 		'core_patterns'     => true,
 		'hide_openverse'    => true,
 		'patterns_shortcut' => true,
@@ -96,8 +97,15 @@ final class Settings {
 		);
 		add_settings_section( 'rune_editor_features', __( 'Block Editor', 'rune' ), '__return_null', 'rune-editor' );
 		add_settings_section( 'rune_patterns', __( 'Patterns', 'rune' ), '__return_null', 'rune-editor' );
+		add_settings_section( 'rune_augur', __( 'Augur', 'rune' ), '__return_null', 'rune-editor' );
 
 		$fields = array(
+			'augur'             => array(
+				'section'     => 'rune_augur',
+				'title'       => __( 'Augur', 'rune' ),
+				'label'       => __( 'Enable Augur in the Editor', 'rune' ),
+				'description' => __( 'Shows the Improve Clarity action for supported text blocks.', 'rune' ),
+			),
 			'simplify_blocks'   => array(
 				'section'     => 'rune_editor_features',
 				'title'       => __( 'Available Blocks', 'rune' ),
