@@ -28,7 +28,7 @@ After installing Composer and npm dependencies, run `composer dump-autoload` to 
 
 ## Editor Controls
 
-Under **Settings → Rune**, the **Block Editor** settings control the available blocks and Openverse media source. **Patterns** settings control the native Patterns shortcut, bundled WordPress patterns and remote pattern directory. These controls do not unregister blocks, alter saved content or remove saved patterns.
+Under **Settings → Rune**, the **Block Editor** settings control the available blocks and Openverse media source. **Patterns** settings control the native Patterns shortcut, bundled WordPress patterns and remote pattern directory. **Augur** controls whether its editor action is available. These controls do not unregister blocks, alter saved content or remove saved patterns.
 
 Rune copies existing editor preferences from Aeon into its own `rune_editor_features` option on first load. Existing selections are preserved, and Rune’s settings do not delete or modify Aeon’s saved option.
 
@@ -49,3 +49,9 @@ Rune exposes these canvas colour variables: `--rune-canvas-background`, `--rune-
 Run `npm run test:editor` for six canvas lifecycle checks. CI runs them with linting and the build. Also check keyboard activation, saved preference after reload, toolbar availability in post, site and Widgets editors, and the surrounding editor interface. Obel has no Widgets area, so Widgets testing uses a temporary local sidebar fixture. Remove it without saving any Widgets.
 
 References: [SlotFill](https://developer.wordpress.org/block-editor/reference-guides/components/slot-fill/), [editor asset loading](https://developer.wordpress.org/block-editor/how-to-guides/enqueueing-assets-in-the-editor/).
+
+## Augur
+
+Augur adds an **Improve Clarity** action to the block editor for selected paragraph and heading blocks. It sends only the selected block text to a server-side provider and shows the response for review before applying it. Saving the post uses WordPress's normal revision workflow.
+
+Configure the provider outside the browser with `AUGUR_PROVIDER` (`openai` or `gemini`), `AUGUR_MODEL` and `AUGUR_API_KEY`, then enable Augur under **Settings → Rune → Augur**. Keep the key in the environment or server configuration; it is never exposed to editor JavaScript. The first version has no usage limiter and supports block-level rather than inline text selection.

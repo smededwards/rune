@@ -8,14 +8,7 @@ import { store as preferencesStore } from '@wordpress/preferences';
 
 // Internal dependencies.
 import { createCanvasController } from './canvas';
-
-// WordPress 7.1 shares the core scope across post/site editors; older scopes remain as a SlotFill adapter for widgets and previous releases.
-const toolbarSlots = [
-	'PinnedItems/core',
-	'PinnedItems/core/edit-post',
-	'PinnedItems/core/edit-site',
-	'PinnedItems/core/edit-widgets',
-];
+import { toolbarSlots } from '../editor-slots';
 
 /**
  * Render the persistent editor canvas colour-mode control.
