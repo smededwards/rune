@@ -13,6 +13,7 @@ use Rune\Editor\Augur;
 use Rune\Editor\ColourMode;
 use Rune\Editor\Features;
 use Rune\Editor\Patterns;
+use Rune\Editor\ProjectDetails;
 use Rune\Editor\Settings;
 
 /**
@@ -33,6 +34,7 @@ final class Plugin {
 		( new Patterns( $settings ) )->register();
 		( new ColourMode() )->register();
 		( new Augur( $settings ) )->register();
+		( new ProjectDetails() )->register();
 	}
 
 	/**

@@ -16,6 +16,7 @@ module.exports = {
 			__dirname,
 			'blocks/experience-years/index.js'
 		),
+		'project-details': path.resolve( __dirname, 'src/project-details.js' ),
 		augur: path.resolve( __dirname, 'src/augur.js' ),
 	},
 };

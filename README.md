@@ -50,6 +50,20 @@ Run `npm run test:editor` for six canvas lifecycle checks. CI runs them with lin
 
 References: [SlotFill](https://developer.wordpress.org/block-editor/reference-guides/components/slot-fill/), [editor asset loading](https://developer.wordpress.org/block-editor/how-to-guides/enqueueing-assets-in-the-editor/).
 
+## Project Details Bindings
+
+Rune registers Role, Year and Technologies metadata for Pages and exposes them through the `rune/project-meta` Block Bindings source. The **Project Details** panel saves the values through the normal editor REST workflow. Core Paragraph and Heading blocks can consume the values without becoming custom blocks.
+
+For example, a bound Paragraph can use this saved markup:
+
+```html
+<!-- wp:paragraph {"metadata":{"bindings":{"content":{"source":"rune/project-meta","args":{"field":"role"}}}}} -->
+<p>Role</p>
+<!-- /wp:paragraph -->
+```
+
+Rune owns the metadata and binding source; the active theme owns the layout and presentation.
+
 ## Augur
 
 Augur adds an **Improve Clarity** action to the block editor for selected paragraph and heading blocks. It sends only the selected block text to a server-side provider and shows the response for review before applying it. Saving the post uses WordPress's normal revision workflow.
