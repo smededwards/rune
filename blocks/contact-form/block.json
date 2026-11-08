@@ -11,11 +11,15 @@
   "attributes": {
     "nameLabel": {
       "type": "string",
-      "default": "Name"
+      "default": "Your Name"
     },
     "emailLabel": {
       "type": "string",
-      "default": "Email"
+      "default": "Email Address"
+    },
+    "subjectLabel": {
+      "type": "string",
+      "default": "Subject"
     },
     "messageLabel": {
       "type": "string",
@@ -23,11 +27,15 @@
     },
     "namePlaceholder": {
       "type": "string",
-      "default": "Your name"
+      "default": "Enter your name"
     },
     "emailPlaceholder": {
       "type": "string",
-      "default": "you@example.com"
+      "default": "name@example.com"
+    },
+    "subjectPlaceholder": {
+      "type": "string",
+      "default": "Select a Subject (Optional)"
     },
     "messagePlaceholder": {
       "type": "string",
@@ -35,7 +43,7 @@
     },
     "buttonLabel": {
       "type": "string",
-      "default": "Send message"
+      "default": "Send Message"
     },
     "successMessage": {
       "type": "string",
