@@ -4,6 +4,10 @@ All notable changes to Rune are documented here.
 
 ## [Unreleased]
 
+Future changes go here.
+
+## [0.3.0] - 2026-11-08
+
 ### Added
 
 - Add copy controls to native Code blocks.
