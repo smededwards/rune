@@ -195,7 +195,12 @@ final class Settings {
 	public function render_field( array $args ): void {
 		$key = $args['key'];
 		printf(
-			'<input type="hidden" name="%1$s[%2$s]" value="0"><label for="rune-%2$s"><input id="rune-%2$s" type="checkbox" name="%1$s[%2$s]" value="1" %3$s> %4$s</label><p class="description">%5$s</p>',
+			'<input type="hidden" name="%1$s[%2$s]" value="0">
+			<label for="rune-%2$s">
+				<input id="rune-%2$s" type="checkbox" name="%1$s[%2$s]" value="1" %3$s>
+				%4$s
+			</label>
+			<p class="description">%5$s</p>',
 			esc_attr( self::OPTION ),
 			esc_attr( $key ),
 			checked( $this->is_enabled( $key ), true, false ),
