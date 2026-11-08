@@ -30,7 +30,8 @@
     "classmap": [
       "class-plugin.php",
       "blocks/",
-      "editor/"
+      "editor/",
+      "frontend/"
     ]
   }
 }

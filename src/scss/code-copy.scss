@@ -1,0 +1,56 @@
+.rune-code-copy {
+	position: relative;
+
+	&__button {
+		position: absolute;
+		inset-block-start: 1rem;
+		inset-inline-end: 1rem;
+		border: 0;
+		padding: 0.5rem;
+		background: var(--obel-ink, var(--rune-canvas-text, #19191a));
+		color: var(--obel-bg, var(--rune-canvas-background, #fff));
+		font: inherit;
+		font-size: 0;
+		line-height: 1;
+		cursor: pointer;
+		transition: background-color 240ms ease, color 240ms ease;
+
+		&::before {
+			width: 1.4rem;
+			height: 1.4rem;
+			background: currentcolor;
+			content: "";
+			display: block;
+			mask: url(../icons/copy.svg) center / contain no-repeat;
+			-webkit-mask: url(../icons/copy.svg) center / contain no-repeat;
+		}
+
+		&:hover,
+		&:focus-visible {
+			background: var(--obel-gold, #c29c69);
+			color: var(--obel-ink, #19191a);
+		}
+	}
+
+	&__status {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		margin: -1px;
+		padding: 0;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	> .wp-block-code {
+		margin-block: 0;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.rune-code-copy__button {
+		transition: none;
+	}
+}

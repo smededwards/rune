@@ -22,7 +22,7 @@ Use Conventional Commit subjects and PR titles, such as `feat(theme): add naviga
 
 Add **Contact Form** to a public Page. Select the block and use **Block Settings → Form Content** to edit the name, email and message labels, placeholders, submit button and success message. The fields are fixed for the MVP. Build the introduction and profile links with native blocks. Use one Contact Form block per Page.
 
-The block is defined in `blocks/contact-form/block.json`, rendered by namespaced PHP and configured with an editor script compiled to `build/contact-form.js`. It saves attributes and renders escaped markup with visible labels, required indicators, field errors and an error summary. Aeon handles submissions; without Aeon, Rune does not render the public form. Obel supplies the styles. The form needs no frontend JavaScript.
+The block is defined in `blocks/contact-form/block.json`, rendered by namespaced PHP and configured with an editor script compiled to `build/contact-form.js`. It saves attributes and renders escaped markup with visible labels, required indicators, field errors and an error summary. Aeon handles submissions; without Aeon, Rune does not render the public form. Obel supplies the styles. The form needs no front-end JavaScript.
 
 After installing Composer and npm dependencies, run `composer dump-autoload` to update the classmap and `npm run build` to compile assets. WordPress provides editor packages at runtime, and the build extracts their script dependencies. Generated assets and Composer dependencies are excluded from Git.
 
@@ -63,6 +63,12 @@ For example, a bound Paragraph can use this saved markup:
 ```
 
 Rune owns the metadata and binding source; the active theme owns the layout and presentation.
+
+## Code Block Copy Control
+
+Rune enhances native **Code** blocks with an accessible **Copy** button on the front-end. The block keeps WordPress’s saved `core/code` markup and editor behaviour; Rune adds the control only when the block is rendered. The button uses the Clipboard API with a small fallback for browsers that do not expose it, and reports the result through a live status message.
+
+The server-side wrapper lives in `frontend/class-code-copy.php`. Its front-end behaviour is built from `src/code-copy.js`, with presentation in `src/scss/code-copy.scss`. Existing code content is read from the native `<code>` element, so indentation and line breaks remain intact.
 
 ## Augur
 

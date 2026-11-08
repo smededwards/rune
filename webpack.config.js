@@ -18,5 +18,6 @@ module.exports = {
 		),
 		'project-details': path.resolve( __dirname, 'src/project-details.js' ),
 		augur: path.resolve( __dirname, 'src/augur.js' ),
+		'code-copy': path.resolve( __dirname, 'src/code-copy.js' ),
 	},
 };
