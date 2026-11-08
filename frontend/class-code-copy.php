@@ -65,7 +65,14 @@ final class CodeCopy {
 		wp_enqueue_style( 'rune-code-copy' );
 
 		$button = sprintf(
-			'<button class="rune-code-copy__button" type="button" data-rune-code-copy data-copy-label="%3$s" data-copied-label="%1$s" data-error-label="%2$s">%3$s</button>',
+			'<button
+				class="rune-code-copy__button"
+				type="button"
+				data-rune-code-copy
+				data-copy-label="%3$s"
+				data-copied-label="%1$s"
+				data-error-label="%2$s"
+			>%3$s</button>',
 			esc_attr__( 'Copied', 'rune' ),
 			esc_attr__( 'Unable to copy code.', 'rune' ),
 			esc_html__( 'Copy', 'rune' )
@@ -73,7 +80,11 @@ final class CodeCopy {
 		$status = '<span class="rune-code-copy__status" role="status" aria-live="polite"></span>';
 
 		return sprintf(
-			'<div class="rune-code-copy">%1$s%2$s%3$s</div>',
+			'<div class="rune-code-copy">
+				%1$s
+				%2$s
+				%3$s
+			</div>',
 			$button,
 			$status,
 			$block_content

@@ -55,26 +55,65 @@ final class ContactForm {
 					? sprintf( '<li>%s</li>', esc_html( $error ) )
 					: sprintf( '<li><a href="#contact-%s">%s: %s</a></li>', esc_attr( $field ), esc_html( $attributes[ $field . 'Label' ] ), esc_html( $error ) );
 			}
-			$summary = sprintf( '<div class="contact-form__notice contact-form__notice--error" role="alert" tabindex="-1" autofocus><p>%s</p><ul>%s</ul></div>', esc_html__( 'Please check your message.', 'rune' ), $links );
+			$summary = sprintf(
+				'<div class="contact-form__notice contact-form__notice--error" role="alert" tabindex="-1" autofocus>
+					<p>%s</p>
+					<ul>%s</ul>
+				</div>',
+				esc_html__( 'Please check your message.', 'rune' ),
+				$links
+			);
 		}
-		$fields = '';
+		$fields          = '';
+		$subject_options = array(
+			'employment'  => __( 'Employment Opportunity', 'rune' ),
+			'project'     => __( 'Project Enquiry', 'rune' ),
+			'consultancy' => __( 'WordPress Consultancy', 'rune' ),
+			'general'     => __( 'General Enquiry', 'rune' ),
+			'other'       => __( 'Other', 'rune' ),
+		);
 		foreach ( array(
 			'name'    => 100,
 			'email'   => 254,
 			'subject' => 0,
 			'message' => 5000,
 		) as $field => $limit ) {
-			$value    = $state['values'][ $field ] ?? '';
-			$error    = $errors[ $field ] ?? '';
-			$aria     = $error ? sprintf( ' aria-invalid="true" aria-describedby="contact-%s-error"', esc_attr( $field ) ) : '';
-			$input    = 'subject' === $field
-				? sprintf( '<select id="contact-subject" name="aeon_contact[subject]"%s><option value="">%s</option><option value="employment"%s>%s</option><option value="project"%s>%s</option><option value="consultancy"%s>%s</option><option value="general"%s>%s</option><option value="other"%s>%s</option></select>', $aria, esc_html( $attributes['subjectPlaceholder'] ), selected( $value, 'employment', false ), esc_html__( 'Employment Opportunity', 'rune' ), selected( $value, 'project', false ), esc_html__( 'Project Enquiry', 'rune' ), selected( $value, 'consultancy', false ), esc_html__( 'WordPress Consultancy', 'rune' ), selected( $value, 'general', false ), esc_html__( 'General Enquiry', 'rune' ), selected( $value, 'other', false ), esc_html__( 'Other', 'rune' ) )
-				: ( 'message' === $field
-					? sprintf( '<textarea id="contact-message" name="aeon_contact[message]" rows="7" maxlength="%d" placeholder="%s" required%s>%s</textarea>', $limit, esc_attr( $attributes['messagePlaceholder'] ), $aria, esc_textarea( $value ) )
-					: sprintf( '<input id="contact-%1$s" name="aeon_contact[%1$s]" type="%2$s" autocomplete="%1$s"%3$s maxlength="%4$d" placeholder="%5$s" value="%6$s" required%7$s>', esc_attr( $field ), 'email' === $field ? 'email' : 'text', 'email' === $field ? ' inputmode="email"' : '', $limit, esc_attr( $attributes[ $field . 'Placeholder' ] ), esc_attr( $value ), $aria ) );
+			$value = $state['values'][ $field ] ?? '';
+			$error = $errors[ $field ] ?? '';
+			$aria  = $error ? sprintf( ' aria-invalid="true" aria-describedby="contact-%s-error"', esc_attr( $field ) ) : '';
+			if ( 'subject' === $field ) {
+				$subject_markup = '';
+				foreach ( $subject_options as $subject_value => $subject_label ) {
+					$subject_markup .= sprintf(
+						'<option value="%1$s"%2$s>%3$s</option>',
+						esc_attr( $subject_value ),
+						selected( $value, $subject_value, false ),
+						esc_html( $subject_label )
+					);
+				}
+				$input = sprintf(
+					'<select id="contact-subject" name="aeon_contact[subject]"%1$s>
+						<option value="">%2$s</option>
+						%3$s
+					</select>',
+					$aria,
+					esc_html( $attributes['subjectPlaceholder'] ),
+					$subject_markup
+				);
+			} elseif ( 'message' === $field ) {
+				$input = sprintf( '<textarea id="contact-message" name="aeon_contact[message]" rows="7" maxlength="%d" placeholder="%s" required%s>%s</textarea>', $limit, esc_attr( $attributes['messagePlaceholder'] ), $aria, esc_textarea( $value ) );
+			} else {
+				$input = sprintf( '<input id="contact-%1$s" name="aeon_contact[%1$s]" type="%2$s" autocomplete="%1$s"%3$s maxlength="%4$d" placeholder="%5$s" value="%6$s" required%7$s>', esc_attr( $field ), 'email' === $field ? 'email' : 'text', 'email' === $field ? ' inputmode="email"' : '', $limit, esc_attr( $attributes[ $field . 'Placeholder' ] ), esc_attr( $value ), $aria );
+			}
 			$required = 'subject' === $field ? '' : esc_html__( '(required)', 'rune' );
 			$fields  .= sprintf(
-				'<div class="contact-form__field"><label for="contact-%1$s">%2$s <span class="contact-form__required">%3$s</span></label>%4$s%5$s</div>',
+				'<div class="contact-form__field">
+					<label for="contact-%1$s">
+						%2$s <span class="contact-form__required">%3$s</span>
+					</label>
+					%4$s
+					%5$s
+				</div>',
 				esc_attr( $field ),
 				esc_html( $attributes[ $field . 'Label' ] ),
 				$required,
@@ -83,7 +122,19 @@ final class ContactForm {
 			);
 		}
 		return sprintf(
-			'<div %1$s id="contact-form">%2$s%3$s<form class="contact-form__form" action="%4$s#contact-form" method="post"><input type="hidden" name="_aeon_nonce" value="%5$s"><div hidden aria-hidden="true"><label for="contact-website">%6$s</label><input id="contact-website" name="aeon_contact[website]" type="text" tabindex="-1" autocomplete="off"></div>%7$s<button class="contact-form__submit" type="submit">%8$s</button></form></div>',
+			'<div %1$s id="contact-form">
+				%2$s
+				%3$s
+				<form class="contact-form__form" action="%4$s#contact-form" method="post">
+					<input type="hidden" name="_aeon_nonce" value="%5$s">
+					<div hidden aria-hidden="true">
+						<label for="contact-website">%6$s</label>
+						<input id="contact-website" name="aeon_contact[website]" type="text" tabindex="-1" autocomplete="off">
+					</div>
+					%7$s
+					<button class="contact-form__submit" type="submit">%8$s</button>
+				</form>
+			</div>',
 			get_block_wrapper_attributes( array( 'class' => 'contact-form' ) ),
 			$notice,
 			$summary,
