@@ -15,6 +15,7 @@ use Rune\Editor\Features;
 use Rune\Editor\Patterns;
 use Rune\Editor\ProjectDetails;
 use Rune\Editor\Settings;
+use Rune\FrontEnd\CodeCopy;
 
 /**
  * Registers Rune blocks and editor extensions using native APIs.
@@ -35,6 +36,7 @@ final class Plugin {
 		( new ColourMode() )->register();
 		( new Augur( $settings ) )->register();
 		( new ProjectDetails() )->register();
+		( new CodeCopy() )->register();
 	}
 
 	/**

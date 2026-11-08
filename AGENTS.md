@@ -6,6 +6,7 @@
 - Use sentence case for package names: Aeon, Obel and Rune. Keep lowercase code identifiers and package slugs unchanged.
 - Use Title Case for website content headings and SEO title overrides, including brand names such as WordPress.
 - Use Title Case for user-facing names, titles and headings, keeping short articles and conjunctions such as “a”, “and”, “in” and “the” lowercase. Use sentence case for user-facing descriptions and explanatory text.
+- Use `FrontEnd`, `BackEnd` and `FullStack` in compound code identifiers when needed. Use `front-end`, `back-end` and `full-stack` in prose, and `Front-End`, `Back-End` and `Full-Stack` in title case. Preserve established technical identifiers and paths unless a deliberate rename is part of the task.
 - Use Conventional Commits for every new commit and PR title: `type(scope): description`, with an optional scope and optional `!` for breaking changes.
 - Accepted types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`.
 - The sole exception is the repository's first commit, whose subject is exactly `Initial Commit`.
@@ -40,9 +41,11 @@ Apply these principles while planning, implementing and reviewing every change a
 - Document each PHP and JavaScript function/method with an adequate DocBlock/JSDoc: a concise purpose, descriptions for each parameter, and a return description/type when applicable. Add documentation to callbacks when their purpose or contract is not self-evident. Use `//` for ordinary single-line comments; reserve DocBlocks/JSDoc blocks for function documentation and multiline block comments for longer notes or required WordPress translator comments.
 - Group JavaScript imports with comments: WordPress or external dependencies first, then internal dependencies, separated by a blank line. Keep PHP `use` declarations directly after the namespace and alphabetised within their logical groups.
 - At final PR preparation, run Ponytail once, one custom-code consistency pass, and only the affected checks: PHPCS for PHP, ESLint and the build for JavaScript, Stylelint and the build for SCSS. Exclude WordPress core, vendor, generated, backup and third-party plugin files. After fixing findings, rerun only the affected checks.
-- For frontend or editor-facing features that change templates, blocks, navigation or responsive behaviour, run targeted Playwright checks at the relevant WordPress viewport sizes. Store screenshots and logs only under the Portfolio repository's `.docs/tests/playwright/` directory.
+- For front-end or editor-facing features that change templates, blocks, navigation or responsive behaviour, run targeted Playwright checks at the relevant WordPress viewport sizes. Store screenshots and logs only under the Portfolio repository's `.docs/tests/playwright/` directory.
 
 - Use BEM for custom HTML and SCSS classes: `block`, `block__element`, `block--modifier` or `block__element--modifier`. Preserve WordPress-owned classes and keep block metadata, saved markup and selectors aligned when renaming classes.
+
+- Keep fractional CSS values to a maximum of two decimal places; use an integer unit when exactness matters.
 
 - Prefer native WordPress blocks and editor controls wherever they meet the requirement. Use Page List for page navigation and Query Loop for dynamic card layouts; introduce custom blocks, shortcodes or renderers only for an agreed gap in core.
 
