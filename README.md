@@ -2,6 +2,18 @@
 
 Rune is a WordPress blocks and editor plugin. It provides an editable Contact Form, editor controls and pattern settings.
 
+## Features
+
+- Editable Contact Form block with accessible labels, validation states and configurable subjects.
+- Block Editor settings for available blocks, Openverse media and native patterns.
+- Dark Editor Canvas control for Post, Site and Widgets editors.
+- Project Details metadata exposed through the Block Bindings API.
+- Copy control for native Code blocks using the Clipboard API.
+- Experience-years block for date-aware developer experience content.
+- Augur editor assistance for improving selected paragraph and heading copy.
+
+Detailed feature notes are available in the [Rune Wiki](https://github.com/smededwards/rune/wiki/Features), with development guidance in the [Development page](https://github.com/smededwards/rune/wiki/Development).
+
 ## Name
 
 Rune refers to symbolic writing. Individual marks can form larger expressions, much as reusable blocks combine into pages; the name speaks to composition without prescribing a particular visual style.
