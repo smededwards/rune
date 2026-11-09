@@ -5,7 +5,7 @@
  * Author: Michael Edwards
  * Author URI: https://smededwards.com
  * Description: Portfolio blocks foundation.
- * Version: 0.2.1
+ * Version: 0.3.0
  * Requires PHP: 8.3
  * License: GPL-2.0-or-later
  * Text Domain: rune
@@ -28,7 +28,12 @@ if ( class_exists( \Rune\Plugin::class ) ) {
 		'admin_notices',
 		static function () {
 			if ( current_user_can( 'activate_plugins' ) ) {
-				printf( '<div class="notice notice-error"><p>%s</p></div>', esc_html__( 'Rune requires its Composer autoloader. Run Composer install for the site or plugin.', 'rune' ) );
+				printf(
+					'<div class="notice notice-error">
+						<p>%s</p>
+					</div>',
+					esc_html__( 'Rune requires its Composer autoloader. Run Composer install for the site or plugin.', 'rune' )
+				);
 			}
 		}
 	);
