@@ -1,6 +1,6 @@
 {
   "name": "rune",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": true,
   "engines": {
     "node": ">=24 <25"
@@ -13,7 +13,10 @@
     "test:editor": "node --test tests/*.test.cjs"
   },
   "devDependencies": {
-    "@wordpress/scripts": "37.0.0"
+    "@wordpress/scripts": "37.2.0"
+  },
+  "overrides": {
+    "serialize-javascript": "7.0.5"
   },
   "dependencies": {
     "@wordpress/block-editor": "19.0.0",
