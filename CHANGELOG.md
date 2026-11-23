@@ -6,6 +6,12 @@ All notable changes to Rune are documented here.
 
 Future changes go here.
 
+## [0.3.1] - 2026-11-23
+
+### Security
+
+- Update the WordPress build tooling and override the vulnerable serialize-javascript transitive dependency.
+
 ## [0.3.0] - 2026-11-08
 
 ### Added
