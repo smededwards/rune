@@ -12,6 +12,7 @@ Current release: **0.3.1**.
 - Project Details metadata exposed through the Block Bindings API.
 - Copy control for native Code blocks using the Clipboard API.
 - Experience-years block for date-aware developer experience content.
+- GitHub Repository block with saved public repository details and manual refresh.
 - Augur editor assistance for improving selected paragraph and heading copy.
 
 Detailed feature notes are available in the [Rune Wiki](https://github.com/smededwards/rune/wiki/Features), with development guidance in the [Development page](https://github.com/smededwards/rune/wiki/Development).
