@@ -105,7 +105,7 @@ final class Features {
 		if ( ! $context->post || ! in_array( $context->post->post_type, array( 'post', 'page', 'wp_block' ), true ) ) {
 			return $allowed;
 		}
-		if ( false === $allowed ) {
+		if ( $allowed === false ) {
 			return false;
 		}
 		return is_array( $allowed ) ? array_values( array_intersect( $allowed, self::BLOCKS ) ) : self::BLOCKS;

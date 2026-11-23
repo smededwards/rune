@@ -13,11 +13,11 @@ $rune_assert = static function ( bool $condition, string $message ): void {
 
 $rune_meta = get_registered_meta_keys( 'post', 'page' );
 foreach ( \Rune\Editor\ProjectDetails::META_KEYS as $rune_key ) {
-	$rune_assert( isset( $rune_meta[ $rune_key ] ) && true === $rune_meta[ $rune_key ]['show_in_rest'], 'Project metadata was not registered for the REST API.' );
+	$rune_assert( isset( $rune_meta[ $rune_key ] ) && $rune_meta[ $rune_key ]['show_in_rest'] === true, 'Project metadata was not registered for the REST API.' );
 }
 
 $rune_source = get_block_bindings_source( \Rune\Editor\ProjectDetails::SOURCE );
-$rune_assert( null !== $rune_source, 'The project metadata binding source was not registered.' );
+$rune_assert( $rune_source !== null, 'The project metadata binding source was not registered.' );
 
 $rune_page_id = wp_insert_post(
 	array(
@@ -50,9 +50,9 @@ $rune_block->context = array(
 	'postType' => 'page',
 );
 
-$rune_assert( 'Senior WordPress Engineer' === $rune_source->get_value( array( 'field' => 'role' ), $rune_block, 'content' ), 'The role binding returned the wrong value.' );
-$rune_assert( '2026' === $rune_source->get_value( array( 'field' => 'year' ), $rune_block, 'content' ), 'The year binding returned the wrong value.' );
-$rune_assert( null === $rune_source->get_value( array( 'field' => 'unknown' ), $rune_block, 'content' ), 'Unknown binding fields were not rejected.' );
+$rune_assert( $rune_source->get_value( array( 'field' => 'role' ), $rune_block, 'content' ) === 'Senior WordPress Engineer', 'The role binding returned the wrong value.' );
+$rune_assert( $rune_source->get_value( array( 'field' => 'year' ), $rune_block, 'content' ) === '2026', 'The year binding returned the wrong value.' );
+$rune_assert( $rune_source->get_value( array( 'field' => 'unknown' ), $rune_block, 'content' ) === null, 'Unknown binding fields were not rejected.' );
 
 wp_delete_post( $rune_page_id, true );
 WP_CLI::success( 'Project details bindings passed.' );

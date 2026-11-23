@@ -5,7 +5,7 @@
  * @package Rune
  */
 
-$rune_simplified = 'simplified' === ( $args[0] ?? '' );
+$rune_simplified = ( $args[0] ?? '' ) === 'simplified';
 $rune_assert     = static function ( bool $condition, string $message ): void {
 	if ( ! $condition ) {
 		WP_CLI::error( $message );
@@ -22,7 +22,7 @@ foreach ( array( true, false ) as $rune_hide ) {
 	$rune_media  = apply_filters( 'block_editor_settings_all', $rune_media_base, new WP_Block_Editor_Context() );
 	remove_filter( 'pre_option_rune_editor_features', $rune_option );
 	$rune_assert( ! $rune_hide === $rune_media['enableOpenverseMediaCategory'], 'Openverse did not follow its preference.' );
-	$rune_assert( 'preserved' === $rune_media['rune_media_marker'], 'An unrelated media setting changed.' );
+	$rune_assert( $rune_media['rune_media_marker'] === 'preserved', 'An unrelated media setting changed.' );
 }
 
 $rune_registry = WP_Block_Type_Registry::get_instance();
@@ -48,10 +48,10 @@ foreach ( array( 'post', 'page', 'wp_block' ) as $rune_type ) {
 		$rune_assert( array( 'core/paragraph' ) === get_allowed_block_types( $rune_context ), 'Earlier restrictions were overridden.' );
 		remove_filter( 'allowed_block_types_all', $rune_filter, 99 );
 		add_filter( 'allowed_block_types_all', '__return_false', 99 );
-		$rune_assert( false === get_allowed_block_types( $rune_context ), 'A disabled inserter was re-enabled.' );
+		$rune_assert( get_allowed_block_types( $rune_context ) === false, 'A disabled inserter was re-enabled.' );
 		remove_filter( 'allowed_block_types_all', '__return_false', 99 );
 	} else {
-		$rune_assert( true === $rune_allowed, 'Turning simplification off did not restore the inserter.' );
+		$rune_assert( $rune_allowed === true, 'Turning simplification off did not restore the inserter.' );
 	}
 }
 
@@ -64,7 +64,7 @@ foreach ( array(
 		)
 	),
 ) as $rune_post ) {
-	$rune_assert( true === get_allowed_block_types( new WP_Block_Editor_Context( array( 'post' => $rune_post ) ) ), 'An unrelated editor was restricted.' );
+	$rune_assert( get_allowed_block_types( new WP_Block_Editor_Context( array( 'post' => $rune_post ) ) ) === true, 'An unrelated editor was restricted.' );
 }
 $rune_assert( $rune_registry->is_registered( 'core/embed' ), 'Hidden blocks must remain registered for rendering.' );
 
