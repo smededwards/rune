@@ -111,7 +111,7 @@ final class Augur {
 	 */
 	public function improve_clarity( WP_REST_Request $request ): WP_REST_Response|WP_Error {
 		$text = trim( (string) $request->get_param( 'text' ) );
-		if ( '' === $text ) {
+		if ( $text === '' ) {
 			return new WP_Error( 'rune_augur_empty_text', __( 'Select some text to improve.', 'rune' ), array( 'status' => 400 ) );
 		}
 
@@ -122,7 +122,7 @@ final class Augur {
 		$provider = $this->setting( 'AUGUR_PROVIDER' );
 		$model    = $this->setting( 'AUGUR_MODEL' );
 		$key      = $this->setting( 'AUGUR_API_KEY' );
-		if ( '' === $provider || '' === $model || '' === $key ) {
+		if ( $provider === '' || $model === '' || $key === '' ) {
 			return new WP_Error( 'rune_augur_not_configured', __( 'Augur is not configured for this environment yet.', 'rune' ), array( 'status' => 503 ) );
 		}
 
@@ -131,7 +131,7 @@ final class Augur {
 			return new WP_Error( 'rune_augur_provider_unsupported', __( 'Augur does not support this provider yet.', 'rune' ), array( 'status' => 503 ) );
 		}
 
-		$response = 'gemini' === $provider
+		$response = $provider === 'gemini'
 			? $this->request_gemini( $key, $model, $text )
 			: $this->request_openai( $key, $model, $text );
 
@@ -259,7 +259,7 @@ final class Augur {
 	 * @return string|WP_Error Revised text or an error.
 	 */
 	private function response_text( mixed $text, int $status ): string|WP_Error {
-		if ( $status < 200 || $status >= 300 || ! is_string( $text ) || '' === trim( $text ) ) {
+		if ( $status < 200 || $status >= 300 || ! is_string( $text ) || trim( $text ) === '' ) {
 			return new WP_Error( 'rune_augur_provider_error', __( 'Augur returned no usable text.', 'rune' ), array( 'status' => 502 ) );
 		}
 
@@ -278,6 +278,6 @@ final class Augur {
 		}
 
 		$value = getenv( $name );
-		return false === $value ? '' : trim( (string) $value );
+		return $value === false ? '' : trim( (string) $value );
 	}
 }

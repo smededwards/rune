@@ -99,7 +99,7 @@ final class ProjectDetails {
 		$post_id = (int) ( $block_instance->context['postId'] ?? 0 );
 		$post    = $post_id ? get_post( $post_id ) : null;
 
-		if ( ! $post || 'page' !== $post->post_type || ! isset( self::META_KEYS[ $field ] ) ) {
+		if ( ! $post || $post->post_type !== 'page' || ! isset( self::META_KEYS[ $field ] ) ) {
 			return null;
 		}
 

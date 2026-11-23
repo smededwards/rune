@@ -83,8 +83,8 @@ final class GitHubRepository {
 
 		$status = wp_remote_retrieve_response_code( $response );
 		$data   = json_decode( wp_remote_retrieve_body( $response ), true );
-		if ( 200 !== $status || ! is_array( $data ) || empty( $data['html_url'] ) ) {
-			return new WP_Error( 'rune_repository_unavailable', __( 'That public GitHub repository could not be found. Existing repository data was kept.', 'rune' ), array( 'status' => 404 === $status ? 404 : 502 ) );
+		if ( $status !== 200 || ! is_array( $data ) || empty( $data['html_url'] ) ) {
+			return new WP_Error( 'rune_repository_unavailable', __( 'That public GitHub repository could not be found. Existing repository data was kept.', 'rune' ), array( 'status' => $status === 404 ? 404 : 502 ) );
 		}
 
 		return new WP_REST_Response(
@@ -105,12 +105,12 @@ final class GitHubRepository {
 	 */
 	private function repository_segments( string $url ): ?array {
 		$parts = wp_parse_url( $url );
-		if ( ! is_array( $parts ) || 'github.com' !== strtolower( $parts['host'] ?? '' ) ) {
+		if ( ! is_array( $parts ) || strtolower( $parts['host'] ?? '' ) !== 'github.com' ) {
 			return null;
 		}
 
 		$segments = array_values( array_filter( explode( '/', trim( $parts['path'] ?? '', '/' ) ) ) );
-		if ( 2 !== count( $segments ) ) {
+		if ( count( $segments ) !== 2 ) {
 			return null;
 		}
 

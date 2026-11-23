@@ -66,7 +66,7 @@ final class Patterns {
 			return;
 		}
 		foreach ( WP_Block_Patterns_Registry::get_instance()->get_all_registered() as $pattern ) {
-			if ( 'core' === ( $pattern['source'] ?? '' ) ) {
+			if ( ( $pattern['source'] ?? '' ) === 'core' ) {
 				unregister_block_pattern( $pattern['name'] );
 			}
 		}
@@ -91,10 +91,10 @@ final class Patterns {
 	 * @return mixed Response or error when blocked; otherwise the earlier result.
 	 */
 	public function restrict_directory( mixed $result, WP_REST_Server $server, WP_REST_Request $request ): mixed {
-		if ( null !== $result || $this->settings->is_enabled( 'remote_patterns' ) ) {
+		if ( $result !== null || $this->settings->is_enabled( 'remote_patterns' ) ) {
 			return $result;
 		}
-		if ( '/wp/v2/pattern-directory/patterns' !== untrailingslashit( $request->get_route() ) ) {
+		if ( untrailingslashit( $request->get_route() ) !== '/wp/v2/pattern-directory/patterns' ) {
 			return $result;
 		}
 		return new WP_Error( 'rune_remote_patterns_disabled', __( 'WordPress.org patterns are disabled in Rune settings.', 'rune' ), array( 'status' => 403 ) );

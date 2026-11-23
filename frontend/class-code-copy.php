@@ -57,7 +57,7 @@ final class CodeCopy {
 	 */
 	public function render( string $block_content, array $block ): string {
 		unset( $block );
-		if ( '' === trim( wp_strip_all_tags( $block_content ) ) ) {
+		if ( trim( wp_strip_all_tags( $block_content ) ) === '' ) {
 			return $block_content;
 		}
 
