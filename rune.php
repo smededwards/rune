@@ -21,6 +21,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( \Rune\Plugin::class ) && is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
 	require_once __DIR__ . '/vendor/autoload.php';
 }
+// Keep a new block available while a Bedrock classmap is being refreshed.
+if ( ! class_exists( \Rune\Blocks\GitHubRepository::class ) && is_readable( __DIR__ . '/blocks/github-repository/class-github-repository.php' ) ) {
+	require_once __DIR__ . '/blocks/github-repository/class-github-repository.php';
+}
 if ( class_exists( \Rune\Plugin::class ) ) {
 	( new \Rune\Plugin() )->register();
 } else {

@@ -9,6 +9,7 @@ namespace Rune;
 
 use Rune\Blocks\ContactForm;
 use Rune\Blocks\ExperienceYears;
+use Rune\Blocks\GitHubRepository;
 use Rune\Editor\Augur;
 use Rune\Editor\ColourMode;
 use Rune\Editor\Features;
@@ -45,6 +46,8 @@ final class Plugin {
 	 * @return void
 	 */
 	public function blocks(): void {
+		$github_repository = new GitHubRepository();
+		$github_repository->register_routes();
 		register_block_type(
 			__DIR__ . '/blocks/contact-form',
 			array( 'render_callback' => array( new ContactForm(), 'render' ) )
@@ -52,6 +55,10 @@ final class Plugin {
 		register_block_type(
 			__DIR__ . '/blocks/experience-years',
 			array( 'render_callback' => array( new ExperienceYears(), 'render' ) )
+		);
+		register_block_type(
+			__DIR__ . '/blocks/github-repository',
+			array( 'render_callback' => array( $github_repository, 'render' ) )
 		);
 	}
 }

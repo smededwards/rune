@@ -15,6 +15,7 @@ final class Features {
 	private const BLOCKS = array(
 		'rune/contact-form',
 		'rune/experience-years',
+		'rune/github-repository',
 		'core/paragraph',
 		'core/heading',
 		'core/list',
