@@ -56,7 +56,7 @@ final class ContactForm {
 					: sprintf( '<li><a href="#contact-%s">%s: %s</a></li>', esc_attr( $field ), esc_html( $attributes[ $field . 'Label' ] ), esc_html( $error ) );
 			}
 			$summary = sprintf(
-				'<div class="contact-form__notice contact-form__notice--error" role="alert" tabindex="-1" autofocus>
+				'<div class="contact-form__notice contact-form__notice--error" role="alert" aria-live="assertive" tabindex="-1">
 					<p>%s</p>
 					<ul>%s</ul>
 				</div>',
