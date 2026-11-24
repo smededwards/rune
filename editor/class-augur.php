@@ -19,6 +19,8 @@ final class Augur {
 
 	private const MAX_LENGTH = 4000;
 
+	private const RATE_LIMIT = 10;
+
 	/**
 	 * Receive Rune editor settings.
 	 *
@@ -119,6 +121,13 @@ final class Augur {
 			return new WP_Error( 'rune_augur_text_too_long', __( 'Select less text and try again.', 'rune' ), array( 'status' => 400 ) );
 		}
 
+		$rate_key = 'rune_augur_rate_' . get_current_user_id();
+		$requests = (int) get_transient( $rate_key );
+		if ( $requests >= self::RATE_LIMIT ) {
+			return new WP_Error( 'rune_augur_rate_limited', __( 'Please wait before sending another request.', 'rune' ), array( 'status' => 429 ) );
+		}
+		set_transient( $rate_key, $requests + 1, MINUTE_IN_SECONDS );
+
 		$provider = $this->setting( 'AUGUR_PROVIDER' );
 		$model    = $this->setting( 'AUGUR_MODEL' );
 		$key      = $this->setting( 'AUGUR_API_KEY' );
@@ -154,12 +163,13 @@ final class Augur {
 		$response = wp_remote_post(
 			'https://api.openai.com/v1/chat/completions',
 			array(
-				'timeout' => 20,
-				'headers' => array(
+				'timeout'             => 20,
+				'limit_response_size' => 1024 * 1024,
+				'headers'             => array(
 					'Authorization' => 'Bearer ' . $key,
 					'Content-Type'  => 'application/json',
 				),
-				'body'    => wp_json_encode( $this->request_body( $model, $text ) ),
+				'body'                => wp_json_encode( $this->request_body( $model, $text ) ),
 			)
 		);
 
@@ -178,12 +188,13 @@ final class Augur {
 		$response = wp_remote_post(
 			sprintf( 'https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent', rawurlencode( $model ) ),
 			array(
-				'timeout' => 20,
-				'headers' => array(
+				'timeout'             => 20,
+				'limit_response_size' => 1024 * 1024,
+				'headers'             => array(
 					'Content-Type'   => 'application/json',
 					'x-goog-api-key' => $key,
 				),
-				'body'    => wp_json_encode(
+				'body'                => wp_json_encode(
 					array(
 						'contents' => array(
 							array( 'parts' => array( array( 'text' => $this->prompt( $text ) ) ) ),
