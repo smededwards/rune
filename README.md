@@ -83,7 +83,7 @@ Rune owns the metadata and binding source; the active theme owns the layout and 
 
 Rune enhances native **Code** blocks with an accessible **Copy** button on the Front-End. The block keeps WordPress’s saved `core/code` markup and editor behaviour; Rune adds the control only when the block is rendered. The button uses the Clipboard API with a small fallback for browsers that do not expose it, and reports the result through a live status message.
 
-The server-side wrapper lives in `frontend/class-code-copy.php`. Its Front-End behaviour is built from `src/code-copy.js`, with presentation in `src/scss/code-copy.scss`. Existing code content is read from the native `<code>` element, so indentation and line breaks remain intact.
+The server-side wrapper lives in `front-end/class-code-copy.php`. Its Front-End behaviour is built from `src/code-copy.js`, with presentation in `src/scss/code-copy.scss`. Existing code content is read from the native `<code>` element, so indentation and line breaks remain intact.
 
 ## Augur
 
