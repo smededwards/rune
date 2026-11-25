@@ -2,7 +2,7 @@
 
 Rune is a WordPress blocks and editor plugin. It provides an editable Contact Form, editor controls and pattern settings.
 
-Current release: **0.3.1**.
+Current release: **0.4.0**.
 
 ## Features
 

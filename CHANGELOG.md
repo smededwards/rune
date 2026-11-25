@@ -4,6 +4,12 @@ All notable changes to Rune are documented here.
 
 ## [Unreleased]
 
+Future changes go here.
+
+## [0.4.0] - 2026-11-25
+
+### Added
+
 - Add the GitHub Repository block for saved public repository details on Posts and Pages.
 
 ## [0.3.1] - 2026-11-23
