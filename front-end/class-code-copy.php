@@ -1,6 +1,6 @@
 <?php
 /**
- * Front-end code block copy controls.
+ * Front-End code block copy controls.
  *
  * @package Rune
  */
@@ -12,7 +12,7 @@ namespace Rune\FrontEnd;
  */
 final class CodeCopy {
 	/**
-	 * Register the render filter and front-end assets.
+	 * Register the render filter and Front-End assets.
 	 *
 	 * @return void
 	 */
@@ -57,7 +57,7 @@ final class CodeCopy {
 	 */
 	public function render( string $block_content, array $block ): string {
 		unset( $block );
-		if ( '' === trim( wp_strip_all_tags( $block_content ) ) ) {
+		if ( trim( wp_strip_all_tags( $block_content ) ) === '' ) {
 			return $block_content;
 		}
 

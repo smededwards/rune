@@ -47,7 +47,7 @@ final class Settings {
 		}
 
 		$options = get_option( self::OPTION, false );
-		if ( false === $options ) {
+		if ( $options === false ) {
 			$options = get_option( 'aeon_core_features', array() );
 		}
 
@@ -64,7 +64,7 @@ final class Settings {
 	 * @return void
 	 */
 	public function migrate(): void {
-		if ( false !== get_option( self::OPTION, false ) ) {
+		if ( get_option( self::OPTION, false ) !== false ) {
 			return;
 		}
 

@@ -31,7 +31,7 @@ final class ContactForm {
 			'buttonLabel'        => __( 'Send Message', 'rune' ),
 			'successMessage'     => __( 'Thank you. Your message has been sent.', 'rune' ),
 		) as $key => $fallback ) {
-			if ( '' === trim( $attributes[ $key ] ) ) {
+			if ( trim( $attributes[ $key ] ) === '' ) {
 				$attributes[ $key ] = $fallback;
 			}
 		}
@@ -51,12 +51,12 @@ final class ContactForm {
 		if ( $errors ) {
 			$links = '';
 			foreach ( $errors as $field => $error ) {
-				$links .= 'general' === $field
+				$links .= $field === 'general'
 					? sprintf( '<li>%s</li>', esc_html( $error ) )
 					: sprintf( '<li><a href="#contact-%s">%s: %s</a></li>', esc_attr( $field ), esc_html( $attributes[ $field . 'Label' ] ), esc_html( $error ) );
 			}
 			$summary = sprintf(
-				'<div class="contact-form__notice contact-form__notice--error" role="alert" tabindex="-1" autofocus>
+				'<div class="contact-form__notice contact-form__notice--error" role="alert" aria-live="assertive" tabindex="-1">
 					<p>%s</p>
 					<ul>%s</ul>
 				</div>',
@@ -81,7 +81,7 @@ final class ContactForm {
 			$value = $state['values'][ $field ] ?? '';
 			$error = $errors[ $field ] ?? '';
 			$aria  = $error ? sprintf( ' aria-invalid="true" aria-describedby="contact-%s-error"', esc_attr( $field ) ) : '';
-			if ( 'subject' === $field ) {
+			if ( $field === 'subject' ) {
 				$subject_markup = '';
 				foreach ( $subject_options as $subject_value => $subject_label ) {
 					$subject_markup .= sprintf(
@@ -100,12 +100,12 @@ final class ContactForm {
 					esc_html( $attributes['subjectPlaceholder'] ),
 					$subject_markup
 				);
-			} elseif ( 'message' === $field ) {
+			} elseif ( $field === 'message' ) {
 				$input = sprintf( '<textarea id="contact-message" name="aeon_contact[message]" rows="7" maxlength="%d" placeholder="%s" required%s>%s</textarea>', $limit, esc_attr( $attributes['messagePlaceholder'] ), $aria, esc_textarea( $value ) );
 			} else {
-				$input = sprintf( '<input id="contact-%1$s" name="aeon_contact[%1$s]" type="%2$s" autocomplete="%1$s"%3$s maxlength="%4$d" placeholder="%5$s" value="%6$s" required%7$s>', esc_attr( $field ), 'email' === $field ? 'email' : 'text', 'email' === $field ? ' inputmode="email"' : '', $limit, esc_attr( $attributes[ $field . 'Placeholder' ] ), esc_attr( $value ), $aria );
+				$input = sprintf( '<input id="contact-%1$s" name="aeon_contact[%1$s]" type="%2$s" autocomplete="%1$s"%3$s maxlength="%4$d" placeholder="%5$s" value="%6$s" required%7$s>', esc_attr( $field ), $field === 'email' ? 'email' : 'text', $field === 'email' ? ' inputmode="email"' : '', $limit, esc_attr( $attributes[ $field . 'Placeholder' ] ), esc_attr( $value ), $aria );
 			}
-			$required = 'subject' === $field ? '' : esc_html__( '(required)', 'rune' );
+			$required = $field === 'subject' ? '' : esc_html__( '(required)', 'rune' );
 			$fields  .= sprintf(
 				'<div class="contact-form__field">
 					<label for="contact-%1$s">

@@ -48,7 +48,7 @@ final class ExperienceYears {
 		$parsed = \DateTimeImmutable::createFromFormat( '!Y-m-d', $date, wp_timezone() );
 		$errors = \DateTimeImmutable::getLastErrors();
 
-		if ( false === $parsed || ( false !== $errors && ( $errors['warning_count'] || $errors['error_count'] ) ) ) {
+		if ( $parsed === false || ( $errors !== false && ( $errors['warning_count'] || $errors['error_count'] ) ) ) {
 			return null;
 		}
 
@@ -65,11 +65,11 @@ final class ExperienceYears {
 	private function format_value( int $years, string $style ): string {
 		$year_label = _n( 'year', 'years', $years, 'rune' );
 
-		if ( 'plus' === $style ) {
+		if ( $style === 'plus' ) {
 			return sprintf( '%d+', $years );
 		}
 
-		if ( 'over' === $style ) {
+		if ( $style === 'over' ) {
 			// translators: 1: completed years, 2: singular or plural year label.
 			return sprintf( __( 'over %1$d %2$s', 'rune' ), $years, $year_label );
 		}
