@@ -31,7 +31,7 @@ After checks pass, publish Rune separately and create a semantic version tag. Up
 
 ## Contribution Conventions
 
-Use Conventional Commit subjects and PR titles, such as `feat(theme): add navigation` or `fix(blocks): correct editor styles`. Name the first commit `Initial Commit`. PR CI checks titles and commits. See `AGENTS.md` for details.
+Use Conventional Commit subjects and PR titles, such as `feat(theme): add navigation` or `fix(blocks): correct editor styles`. Name the first commit `Initial Commit`. PR CI checks titles, commits, labels and milestones. Every PR needs one `type:*` label, at least one `area:*` label, one `semver:*` impact label and a release, initiative or maintenance milestone. See `AGENTS.md` for details.
 
 ## Contact Form
 
