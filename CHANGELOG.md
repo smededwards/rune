@@ -6,6 +6,12 @@ All notable changes to Rune are documented here.
 
 Future changes go here.
 
+## [0.4.1] - 2026-11-26
+
+### Documentation
+
+- Enforce shared PR labels, milestones and release metadata in CI.
+
 ## [0.4.0] - 2026-11-25
 
 ### Added
